@@ -27,6 +27,16 @@ form h3 {
   margin-bottom: 20px;
 }
 
+form .active {
+  text-align: center;
+  padding: 20px;
+  border: 3px dashed #ebebeb;
+  background-color: #EDEDED;
+  color: #bdbdbd;
+  min-height: 150px;
+  margin-bottom: 20px;
+}
+
 form .dropzone {
   text-align: center;
   padding: 20px;

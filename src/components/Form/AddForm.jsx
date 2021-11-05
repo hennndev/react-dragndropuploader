@@ -1,12 +1,19 @@
-import React, { useState } from 'react'
-import Dropzone from 'react-dropzone'
+import React, { useState, useCallback } from 'react'
+// import Dropzone from 'react-dropzone' // !hooks
+import { useDropzone } from 'react-dropzone'; // hooks
 
 const AddForm = () => {
 
     const [file, setFile] = useState(null);
-    const handleDrop = acceptedFiles => {
+    // const handleDrop = acceptedFiles => {
+    //     setFile(acceptedFiles[0])
+    // }
+
+    const onDrop = useCallback(acceptedFiles => {
         setFile(acceptedFiles[0])
-    }
+      }, [])
+
+    const { getRootProps, isDragActive, getInputProps } = useDropzone({onDrop})
     
 
     return (
@@ -22,14 +29,22 @@ const AddForm = () => {
                     <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Another input placeholder"/>
                 </div>
                 <div className="mb-3">
-                <Dropzone onDrop={handleDrop}>
+                <div {...getRootProps({ className: isDragActive ? 'active' : 'dropzone' })}>
+                    <input {...getInputProps()} />
+                    {
+                        isDragActive ?
+                        <p>Drop the files here ...</p> :
+                        <p>Drag 'n' drop some files here, or click to select files</p>
+                    }
+                </div>
+                {/* <Dropzone onDrop={handleDrop}>
                     {({ getRootProps, getInputProps }) => (
                     <div {...getRootProps({ className: "dropzone" })}>
                         <input {...getInputProps()} />
                         <p>Drag'n'drop files, or click to select files</p>
                     </div>
                     )}
-                </Dropzone>
+                </Dropzone> */}
                 {file && <small>{file.name}</small>}
                 </div>
             </form>
